@@ -53,7 +53,7 @@ Start-Sleep -Seconds 2
 
 ##PSPING
 
-#Run this in PowerShell
+#Run this in PowerShell. If you want the logging, assuming file already created at path!
 psping -t YOURIP:YOURPort |Foreach{"{0} - {1}" -f (Get-Date),$_} | Out-File -FilePath c:\test.txt!
 
 
