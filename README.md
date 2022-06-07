@@ -32,7 +32,9 @@ for i in {0..100}; do wget --spider -S "YOURURI" 2>&1 | grep "HTTP/" | awk '{pri
 while true; do curl -w "dns_resolution: %{time_namelookup}, tcp_established: %{time_connect}, ssl_handshake_done: %{time_appconnect}, TTFB: %{time_starttransfer}\n" -o /dev/null -s "YOURURI"; done
 for i in {1..100}; do curl -k -o /dev/null -s -w "DNS-Lookup [%{time_namelookup}] Time-Connect [%{time_connect}] Time-PreTransfer [%{time_pretransfer}] Time-StartTransfer [%{time_starttransfer}] Total-Time [%{time_total}] Response-Code [%{http_code}]\n" YOURURI; done!
 
-while true; do sudo  curl YOURURI -i --resolve cpa-api.walmart.com:443:10.33.93.237 -kIv -w "%{time_starttransfer}\n%{time_total}\n";sleep 1;done >>curl.log!
+while true; do curl -w "%{http_code},%{time_total},%{local_ip},%{local_port},%{remote_ip},%{remote_port}," YOURURI; date -u;sleep 1; done
+
+for i in {1..100}; do curl -k -o /dev/null -s -w "DNS-Lookup [%{time_namelookup}] Time-Connect [%{time_connect}] Time-PreTransfer [%{time_pretransfer}] Time-StartTransfer [%{time_starttransfer}] Total-Time [%{time_total}] Response-Code [%{http_code}]\n" YOURURI; done!
 
 ##TCPPING
 
