@@ -1,5 +1,52 @@
-# Simple Connectivity-Loop-Scripts
-This repro has simple loop scripts for PPSING, NC, Test-NetConnection and others for testing and common troubleshooting.
+# Simple Loop Scripts
+
+![Bash](https://img.shields.io/badge/Bash-4EAA25?logo=gnu-bash&logoColor=white) ![PowerShell](https://img.shields.io/badge/PowerShell-5391FE?logo=powershell&logoColor=white) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
+A toolkit of small connectivity-loop scripts for testing TCP/UDP reachability with NetCat, Curl, Wget, TCPPing, Test-NetConnection, and PSPing.
+
+## Table of Contents
+
+- [🎯 When To Use](#-when-to-use)
+- [📜 Script Catalog](#-script-catalog)
+- [🚀 Quick Start](#-quick-start)
+- [📋 Original One-liners](#-original-one-liners)
+- [📄 License](#-license)
+
+## 🎯 When To Use
+
+Use these scripts for ad-hoc network troubleshooting, intermittent reachability checks, and simple log-to-file probes when you need lightweight loops around common connectivity tools.
+
+## 📜 Script Catalog
+
+| Script | Language | Purpose | Example |
+| --- | --- | --- | --- |
+| `scripts/bash/nc-loop.sh` | Bash | NetCat TCP reachability loop with failure logging to `test.log`. | `./scripts/bash/nc-loop.sh 8.8.8.8 53` |
+| `scripts/bash/nc-oneliner.sh` | Bash | NetCat TCP reachability loop with date output. | `./scripts/bash/nc-oneliner.sh 8.8.8.8 53` |
+| `scripts/bash/wget-status.sh` | Bash | Repeatedly fetch HTTP status codes with Wget. | `./scripts/bash/wget-status.sh https://example.com 100` |
+| `scripts/bash/curl-timing.sh` | Bash | Continuously print Curl DNS, TCP, TLS, and TTFB timings. | `./scripts/bash/curl-timing.sh https://example.com` |
+| `scripts/bash/curl-status-loop.sh` | Bash | Run fixed-count Curl status and timing checks. | `./scripts/bash/curl-status-loop.sh https://example.com 100` |
+| `scripts/bash/curl-trace.sh` | Bash | Continuously print Curl status, timing, and endpoint details. | `./scripts/bash/curl-trace.sh https://example.com` |
+| `scripts/bash/tcpping.sh` | Bash | Wrap `tcpping -r 2 -d` for a target URI or endpoint. | `./scripts/bash/tcpping.sh example.com:443` |
+| `scripts/powershell/Test-NetConnectionLoop.ps1` | PowerShell | Loop `Test-NetConnection` checks and log timestamped results. | `.\scripts\powershell\Test-NetConnectionLoop.ps1 -ComputerName 8.8.8.8 -Port 53` |
+| `scripts/powershell/Psping-Loop.ps1` | PowerShell | Run continuous PSPing with timestamped log output. | `.\scripts\powershell\Psping-Loop.ps1 -IpPort 8.8.8.8:53` |
+
+## 🚀 Quick Start
+
+```bash
+chmod +x scripts/bash/nc-loop.sh
+./scripts/bash/nc-loop.sh 8.8.8.8 53
+```
+
+```powershell
+New-Item -ItemType Directory -Force C:\Temp | Out-Null
+.\scripts\powershell\Test-NetConnectionLoop.ps1 -ComputerName 8.8.8.8 -Port 53
+```
+
+## 📋 Original One-liners
+
+<details>
+<summary>Show original combined snippets</summary>
+
 ```bash
 ##NetCat
 -----------------------------------------------------------------------------
@@ -59,5 +106,8 @@ Start-Sleep -Seconds 2
 psping -t YOURIP:YOURPort |Foreach{"{0} - {1}" -f (Get-Date),$_} | Out-File -FilePath c:\test.txt!
 ```
 
+</details>
 
+## 📄 License
 
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
